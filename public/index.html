@@ -51,7 +51,17 @@
       <form id="profile-form" class="form-grid">
         <label>Name / Business name<input name="display_name" maxlength="80" required placeholder="जैसे S K Enterprises"></label>
         <label>Instagram username<input name="username" maxlength="30" required pattern="[A-Za-z0-9._]{1,30}" placeholder="yourusername"></label>
-        <label>District / जिला<select name="district" id="form-district" required></select></label>
+<label>District / जिला
+  <select name="district" id="form-district" required>
+    <option value="">जिला चुनें</option>
+    <option value="Deoria">Deoria</option>
+    <option value="Gorakhpur">Gorakhpur</option>
+    <option value="Kushinagar">Kushinagar</option>
+    <option value="Mau">Mau</option>
+    <option value="Ballia">Ballia</option>
+    <option value="Other">Other</option>
+  </select>
+</label>
         <label>Area / Town<input name="area" maxlength="80" required value="Barhaj" placeholder="Barhaj"></label>
         <label>Category / कैटेगरी<select name="category" required><option value="Business">Business</option><option value="Creator">Creator / Reels</option><option value="Personal">Personal / Lifestyle</option></select></label>
         <label class="consent"><input name="consent" type="checkbox" required> मैं पुष्टि करता/करती हूँ कि यह मेरा या मेरी अनुमति वाला public profile है और इसे directory में दिखाने की अनुमति देता/देती हूँ।</label>
