@@ -1,6 +1,6 @@
 /* Public anon/publishable key only. Never put Supabase service_role/secret keys here. */
 const CONFIG = {
-  supabaseUrl: "https://ymfcuirmarxwqvttnil.supabase.co",
+  supabaseUrl: "ymfcuirmarxwqvtttnil",
   supabaseAnonKey: "sb_publishable_CfojSzpWhElrDZK1rAt5rg_bq7IXmRf"
 };
 const DISTRICTS = ["Deoria","Gorakhpur","Kushinagar","Mau","Ballia","Other"];
