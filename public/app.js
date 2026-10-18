@@ -89,7 +89,7 @@ async function sendMagicLink(event) {
     email,
     options: { shouldCreateUser: false, emailRedirectTo: window.location.origin + "/#admin" }
   });
-  if (error) return status("auth-message","Login link नहीं भेजा जा सका। Admin account, email settings और redirect URL जाँचें।","error");
+  if (error) return status("auth-message", `Login error: ${error.message}`, "error");
   status("auth-message","यदि यह मौजूदा admin account है, तो उसके email पर login link भेज दिया गया है।","success");
 }
 function adminCard(p, isPending) {
