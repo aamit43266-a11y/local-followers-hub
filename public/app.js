@@ -87,7 +87,7 @@ async function sendMagicLink(event) {
   const email = $("admin-email").value.trim().toLowerCase();
   const {error} = await db.auth.signInWithOtp({
     email,
-    options: { shouldCreateUser: false, emailRedirectTo: window.location.origin + "/#admin" }
+    options: { shouldCreateUser: false, emailRedirectTo: window.location.origin }
   });
   if (error) return status("auth-message", `Login error: ${error.message}`, "error");
   status("auth-message","यदि यह मौजूदा admin account है, तो उसके email पर login link भेज दिया गया है।","success");
@@ -151,10 +151,25 @@ async function boot() {
   $("refresh-pending").addEventListener("click",loadAdminLists);
   $("logout").addEventListener("click",async()=>{await db.auth.signOut();});
   if (!CONFIG.supabaseUrl || !CONFIG.supabaseAnonKey) { await loadProfiles(); status("submit-message","Setup pending: public/app.js में Supabase project URL और publishable key भरें।","error"); return; }
-  db = window.supabase.createClient(CONFIG.supabaseUrl,CONFIG.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-  const {data:{session}} = await db.auth.getSession();
+  db = window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseAnonKey, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
+  }
+});
+
+db.auth.onAuthStateChange((_event, newSession) => {
+  setTimeout(() => refreshAuth(newSession), 0);
+});
+
+const { data: { session }, error } = await db.auth.getSession();
+
+if (error) {
+  status("auth-message", `Login session error: ${error.message}`, "error");
+} else {
   await refreshAuth(session);
-  db.auth.onAuthStateChange((_event,newSession)=>{ setTimeout(()=>refreshAuth(newSession),0); });
+}
   await loadProfiles();
 }
 document.addEventListener("DOMContentLoaded",boot);
